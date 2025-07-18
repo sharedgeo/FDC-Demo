@@ -1,0 +1,36 @@
+services:
+  server:
+    image: ghcr.io/sharedgeo/fdc-server:latest
+    build:
+      context: FDC-Server
+    depend_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      # Generate with: docker-compose run server bundle exec rails secret
+      SECRET_KEY_BASE: 83aaa9de140c1f609a731692747e99f8a1cf67b3cb83e5049aabdbfaf20480561b69c2aba2576ebb7897ca14cbe81d7fb1fe457a73bde43e0deca9aba037162d
+      RAILS_ENV: production
+      OIDC_ISSUER_URL: https://sso.sharedgeo.org/realms/SharedGeo
+      OIDC_API_AUDIENCE: uumpt-sharedgeo-net
+      OIDC_JWKS_URL: https://sso.sharedgeo.org/realms/SharedGeo/protocol/openid-connect/certs
+      PG_DB: fdc
+      PG_USER: fdc
+      PG_PASS: insecure
+      PG_HOST: postgres
+      PG_PORT: 5432
+
+  postgres:
+    #image: docker.io/library/postgres:17
+    image: docker.io/postgis/postgis:17-3.5
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: fdc
+      POSTGRES_PASSWORD: insecure
+      PGDATA: /var/lib/postgresql/17/docker
+    volumes:
+      - "./database:/var/lib/postgresql"
+
+      # Seed inital DB
+      # podman-compose exec server bundle exec rails db:seed

@@ -1,0 +1,9 @@
+[submodule "FDC-Client"]
+	path = FDC-Client
+	url = git@github.com:SharedGeo/FDC-Client.git
+[submodule "FDC-Docs"]
+	path = FDC-Docs
+	url = git@github.com:SharedGeo/FDC-Docs.git
+[submodule "FDC-Server"]
+	path = FDC-Server
+	url = git@github.com:SharedGeo/FDC-Server.git
