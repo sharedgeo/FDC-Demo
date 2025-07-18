@@ -5,8 +5,9 @@ services:
       context: .
     ports:
       - "8080:80"
+      - "4443:443"
 
-  rails:
+  rails-server:
     image: ghcr.io/sharedgeo/fdc-server:latest
     build:
       context: FDC-Server
@@ -26,9 +27,10 @@ services:
       PG_PASS: insecure
       PG_HOST: postgres
       PG_PORT: 5432
-
+    command: ["./bin/rails", "server", "-b", "[::]"]
   postgres:
     #image: docker.io/library/postgres:17
+    # TODO: not avail on arm64
     image: docker.io/postgis/postgis:17-3.5
     restart: always
     shm_size: 128mb
