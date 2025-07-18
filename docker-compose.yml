@@ -1,5 +1,12 @@
 services:
-  server:
+  apache:
+    image: ghcr.io/sharedgeo/fdc-demo:latest
+    build:
+      context: .
+    ports:
+      - "8080:80"
+
+  rails:
     image: ghcr.io/sharedgeo/fdc-server:latest
     build:
       context: FDC-Server

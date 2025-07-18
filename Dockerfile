@@ -15,9 +15,15 @@ COPY FDC-Docs .
 RUN make html
 
 ### FDC-Demo
-FROM docker.io/library/alpine:3.22
+FROM docker.io/library/debian:12
 
-RUN mkdir -p /app/public
-COPY --from=build-client /src/dist /app/public
-COPY --from=build-docs /src/build/html /app/public/docs
+RUN apt-get update && apt-get upgrade -y && apt-get install -y apache2 && apt-get clean
+RUN a2enmod proxy_http
 
+COPY rails-proxy.conf /etc/apache2/conf-enabled/rails-proxy.conf
+
+WORKDIR /var/www/html
+COPY --from=build-client /src/dist /var/www/html
+COPY --from=build-docs /src/build/html /var/www/html/docs
+
+CMD ["apache2ctl", "-DFOREGROUND"]
