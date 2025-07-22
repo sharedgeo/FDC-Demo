@@ -4,15 +4,14 @@ services:
     build:
       context: .
     ports:
-      - "8080:80"
       - "4443:443"
-
   rails-server:
     image: ghcr.io/sharedgeo/fdc-server:latest
     build:
       context: FDC-Server
-    depend_on:
-      - postgres
+    # TODO: wait for Debian 13
+    #depend_on:
+    #  - postgres
     ports:
       - "3000:3000"
     environment:
@@ -27,11 +26,13 @@ services:
       PG_PASS: insecure
       PG_HOST: postgres
       PG_PORT: 5432
+    restart: on-failure
     command: ["./bin/rails", "server", "-b", "[::]"]
   postgres:
-    #image: docker.io/library/postgres:17
-    # TODO: not avail on arm64
     image: docker.io/postgis/postgis:17-3.5
+    # Image isn't available prebuilt for arm64
+    build:
+      context: vendor/docker-postgis/17-3.5
     restart: always
     shm_size: 128mb
     environment:

@@ -7,3 +7,6 @@
 [submodule "FDC-Server"]
 	path = FDC-Server
 	url = git@github.com:SharedGeo/FDC-Server.git
+[submodule "docker-postgis"]
+	path = vendor/docker-postgis
+	url = https://github.com/postgis/docker-postgis

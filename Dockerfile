@@ -3,8 +3,7 @@ FROM docker.io/library/node:24-alpine as build-client
 
 WORKDIR /src
 COPY FDC-Client .
-ENV VITE_BASE_PATH="/map/"
-RUN npm install && npm run build
+RUN npm install && npm run build && npx vite build --base /map/
 
 ### FDC-Docs
 FROM docker.io/library/alpine:3.22 as build-docs
