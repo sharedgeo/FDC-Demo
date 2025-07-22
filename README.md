@@ -10,9 +10,9 @@ Building
 	  or
 	podman-compose build
 
-Note: The postgis:17-3.5 image isn't available on arm64 and needs to be build on that platform.
+Note: The `postgis:17-3.5` image isn't available on arm64 and needs to be built on that platform.
 
-Note: podman needs a patch to docker-postgis to find the postgres:17-bullseye base image
+Note: podman needs a patch to docker-postgis to find the `postgres:17-bullseye` base image
 
 	cd vendor/docker-postgis
 	git apply ../docker-postgis-use-fully-qualified-repo.patch
@@ -34,6 +34,8 @@ Stopping
 Endpoints:
 ----------
 
-https://localhost:4443/ -> FDC-Server (and example-client for now)
-https://localhost:4443/map/ -> FDC-Client (eventually move to /)
-https://localhost:4443/docs/ -> FDC-Docs
+  * https://localhost:4443/ -> FDC-Server (and example-client for now)
+
+  * https://localhost:4443/map/ -> FDC-Client (eventually move to /)
+
+  * https://localhost:4443/docs/ -> FDC-Docs
