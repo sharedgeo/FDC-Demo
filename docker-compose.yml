@@ -9,6 +9,8 @@ services:
     image: ghcr.io/sharedgeo/fdc-server:latest
     build:
       context: FDC-Server
+      args:
+        RAILS_RELATIVE_URL_ROOT: /api/
     # TODO: wait for Debian 13
     #depend_on:
     #  - postgres
@@ -18,6 +20,7 @@ services:
       # Generate with: docker-compose run server bundle exec rails secret
       SECRET_KEY_BASE: 83aaa9de140c1f609a731692747e99f8a1cf67b3cb83e5049aabdbfaf20480561b69c2aba2576ebb7897ca14cbe81d7fb1fe457a73bde43e0deca9aba037162d
       RAILS_ENV: production
+      RAILS_RELATIVE_URL_ROOT: /api
       OIDC_ISSUER_URL: https://sso.sharedgeo.org/realms/SharedGeo
       OIDC_API_AUDIENCE: uumpt-sharedgeo-net
       OIDC_JWKS_URL: https://sso.sharedgeo.org/realms/SharedGeo/protocol/openid-connect/certs

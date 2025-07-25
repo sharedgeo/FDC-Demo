@@ -34,8 +34,8 @@ Stopping
 Endpoints:
 ----------
 
-  * https://localhost:4443/ -> FDC-Server (and example-client for now)
+  * https://localhost:4443/ -> FDC-Client
 
-  * https://localhost:4443/map/ -> FDC-Client (eventually move to /)
+  * https://localhost:4443/api/ -> FDC-Server (and example-client for now)
 
   * https://localhost:4443/docs/ -> FDC-Docs

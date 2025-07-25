@@ -3,7 +3,7 @@ FROM docker.io/library/node:24-alpine as build-client
 
 WORKDIR /src
 COPY FDC-Client .
-RUN npm install && npm run build && npx vite build --base /map/
+RUN npm install && npm run build && npx vite build --base /
 
 ### FDC-Docs
 FROM docker.io/library/alpine:3.22 as build-docs
@@ -23,7 +23,7 @@ RUN a2enmod proxy_http ssl && a2ensite default-ssl
 COPY rails-proxy.conf /etc/apache2/conf-enabled/rails-proxy.conf
 
 WORKDIR /var/www/html
-COPY --from=build-client /src/dist /var/www/html/map
-COPY --from=build-docs /src/build/html /var/www/html/docs
+COPY --from=build-client /src/dist .
+COPY --from=build-docs /src/build/html ./docs
 
 CMD ["apache2ctl", "-DFOREGROUND"]
