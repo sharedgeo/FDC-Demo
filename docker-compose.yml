@@ -3,6 +3,11 @@ services:
     image: ghcr.io/sharedgeo/fdc-demo:latest
     build:
       context: .
+      args:
+        VITE_BASE_PATH: /
+        VITE_OIDC_AUTHORITY: https://sso.sharedgeo.org/realms/SharedGeo
+        VITE_OIDC_CLIENT_ID: fdc-demo-localhost
+        VITE_OIDC_REDIRECT_URI: https://localhost:4443
     ports:
       - "4443:443"
   rails-server:
