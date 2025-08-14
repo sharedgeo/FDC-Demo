@@ -27,7 +27,7 @@ COPY FDC-Docs .
 RUN make html
 
 ### FDC-Demo
-FROM docker.io/library/debian:12
+FROM docker.io/library/debian:13
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y apache2 && apt-get clean
 RUN a2enmod proxy_http ssl && a2ensite default-ssl
