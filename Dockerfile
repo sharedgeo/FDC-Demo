@@ -20,10 +20,17 @@ RUN npm install && npm run build && npx vite build --base /
 ### FDC-Docs
 FROM docker.io/library/alpine:3.22 as build-docs
 
-RUN apk add --no-cache make py3-sphinx py3-sphinx_rtd_theme
+RUN apk add --no-cache make py3-pip py3-virtualenv
+
+ENV VIRTUAL_ENV=/opt/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 WORKDIR /src
 COPY FDC-Docs .
+
+RUN python3 -m venv $VIRTUAL_ENV && \
+    pip3 install -r requirements.txt
+
 RUN make html
 
 ### FDC-Demo
